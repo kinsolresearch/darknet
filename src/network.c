@@ -725,6 +725,7 @@ void free_network(network *net)
 #ifdef GPU
     if(net->input_gpu) cuda_free(net->input_gpu);
     if(net->truth_gpu) cuda_free(net->truth_gpu);
+    if (net->workspace_size) cuda_free(net->workspace);
 #endif
     free(net);
 }
