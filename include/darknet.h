@@ -799,6 +799,8 @@ size_t rand_size_t();
 float rand_normal();
 float rand_uniform(float min, float max);
 
+void train_detector_partial(network *net, int n_batches, char *train_images);
+
 #ifdef __cplusplus
 }
 #endif
