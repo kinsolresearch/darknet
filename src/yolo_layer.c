@@ -146,7 +146,6 @@ void forward_yolo_layer(const layer l, network net)
 #endif
 
     memset(l.delta, 0, l.outputs * l.batch * sizeof(float));
-    if(!net.train) return;
     float avg_iou = 0;
     float recall = 0;
     float recall75 = 0;
