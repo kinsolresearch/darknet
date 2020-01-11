@@ -663,6 +663,7 @@ void scale_matrix(matrix m, float scale);
 matrix csv_to_matrix(char *filename);
 float *network_accuracies(network *net, data d, int n);
 float train_network_datum(network *net);
+float evaluate_network_datum(network *net);
 image make_random_image(int w, int h, int c);
 
 void denormalize_connected_layer(layer l);
@@ -762,6 +763,7 @@ void make_window(char *name, int w, int h, int fullscreen);
 
 void free_image(image m);
 float train_network(network *net, data d);
+float evaluate_network(network *net, data d);
 pthread_t load_data_in_thread(load_args args);
 void load_data_blocking(load_args args);
 list *get_paths(char *filename);
@@ -799,7 +801,8 @@ size_t rand_size_t();
 float rand_normal();
 float rand_uniform(float min, float max);
 
-void train_detector_partial(network *net, int n_batches, char *train_images);
+float train_detector_partial(network *net, int n_batches, char *train_images);
+float evaluate_detector_partial(network *net, int n_batches, char *val_images);
 
 #ifdef __cplusplus
 }

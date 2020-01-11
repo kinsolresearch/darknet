@@ -297,6 +297,14 @@ float train_network_datum(network *net)
     return error;
 }
 
+float evaluate_network_datum(network *net)
+{
+    net->train = 1;
+    forward_network(net);
+    float error = *net->cost;
+    return error;
+}
+
 float train_network_sgd(network *net, data d, int n)
 {
     int batch = net->batch;
@@ -322,6 +330,22 @@ float train_network(network *net, data d)
     for(i = 0; i < n; ++i){
         get_next_batch(d, batch, i*batch, net->input, net->truth);
         float err = train_network_datum(net);
+        sum += err;
+    }
+    return (float)sum/(n*batch);
+}
+
+float evaluate_network(network *net, data d)
+{
+    assert(d.X.rows % net->batch == 0);
+    int batch = net->batch;
+    int n = d.X.rows / batch;
+
+    int i;
+    float sum = 0;
+    for(i = 0; i < n; ++i){
+        get_next_batch(d, batch, i*batch, net->input, net->truth);
+        float err = evaluate_network_datum(net);
         sum += err;
     }
     return (float)sum/(n*batch);
